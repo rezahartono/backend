@@ -10,8 +10,8 @@ export const PostgresDatasource: DataSource = new DataSource({
   username: process.env.DB_USERNAME || 'rezahr',
   password: process.env.DB_PASSWORD || 'rezahr',
   database: process.env.DB_DATABASE || 'library_db',
-  entities: ['dist/data/entities/**/*.entity{.ts,.js}'],
-  migrations: ['dist/core/database/migrations/*{.ts,.js}'],
+  entities: ['dist/**/entities/*.entity{.ts,.js}'],
+  migrations: ['dist/shared/infrastructure/database/migrations/*{.ts,.js}'],
   synchronize: true, // Disable for production
   logging: ['error', 'query', 'migration', 'log', 'warn', 'schema'],
 });
