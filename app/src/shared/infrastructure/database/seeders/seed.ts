@@ -1,4 +1,6 @@
+import { BookEntity } from 'src/modules/book/infrastructure/entities/book.entity';
 import { PostgresDatasource } from '../database.source';
+import { MemberEntity } from 'src/modules/member/infrastructure/entities/member.entity';
 
 const dataSource = PostgresDatasource;
 

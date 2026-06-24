@@ -5,10 +5,10 @@ export class ListMemberDTO {
   code: string;
   @ApiProperty()
   name: string;
-  @ApiProperty({ name: 'borrowed_book_count' })
-  borrowedBooksCount: number;
-  @ApiProperty({ name: 'is_penalized' })
-  isPenalized: boolean;
-  @ApiProperty({ name: 'penalty_until' })
-  penaltyUntil: Date;
+  @ApiProperty()
+  borrowed_books_count: number;
+  @ApiProperty()
+  is_penalized: boolean;
+  @ApiProperty()
+  penalty_until: Date | null;
 }

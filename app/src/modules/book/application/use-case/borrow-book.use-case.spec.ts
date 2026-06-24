@@ -1,12 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { BorrowBookUseCase } from './borrow-book.use-case';
-import { MEMBER_REPOSITORY } from '../../domain/repositories/member.repository';
 import { BOOK_REPOSITORY } from '../../domain/repositories/book.repository';
 import { BORROW_RECORD_REPOSITORY } from '../../domain/repositories/borrow-record.repository';
-import { Member } from '../../domain/entities/member.entity';
 import { Book } from '../../domain/entities/book.entity';
 import { BorrowRecord } from '../../domain/entities/borrow-record.entity';
+import { MEMBER_REPOSITORY } from 'src/modules/member/domain/repositories/member.repository';
+import { Member } from 'src/modules/member/domain/entities/member.entity';
 
 describe('BorrowBookUseCase', () => {
   let useCase: BorrowBookUseCase;

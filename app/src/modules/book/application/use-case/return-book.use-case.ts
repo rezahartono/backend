@@ -4,13 +4,13 @@ import {
   NotFoundException,
   Inject,
 } from '@nestjs/common';
-import { MEMBER_REPOSITORY } from '../../domain/repositories/member.repository';
+import { MEMBER_REPOSITORY } from '../../../member/domain/repositories/member.repository';
 import { BOOK_REPOSITORY } from '../../domain/repositories/book.repository';
 import { BORROW_RECORD_REPOSITORY } from '../../domain/repositories/borrow-record.repository';
-import type { MemberRepository } from '../../domain/repositories/member.repository';
+import type { MemberRepository } from '../../../member/domain/repositories/member.repository';
 import type { BookRepository } from '../../domain/repositories/book.repository';
 import type { BorrowRecordRepository } from '../../domain/repositories/borrow-record.repository';
-import { BorrowRecord } from '../../domain/entities/borrow-record.entity';
+import { ReturnBookResponseDTO } from '../dto/return-book-response';
 
 @Injectable()
 export class ReturnBookUseCase {
@@ -23,7 +23,10 @@ export class ReturnBookUseCase {
     private readonly borrowRecordRepository: BorrowRecordRepository,
   ) {}
 
-  async execute(memberCode: string, bookCode: string): Promise<BorrowRecord> {
+  async execute(
+    memberCode: string,
+    bookCode: string,
+  ): Promise<ReturnBookResponseDTO> {
     // Find member
     const member = await this.memberRepository.findByCode(memberCode);
     if (!member) {
@@ -69,6 +72,12 @@ export class ReturnBookUseCase {
     await this.bookRepository.update(book);
 
     // Save updated record
-    return this.borrowRecordRepository.update(record);
+    const response = new ReturnBookResponseDTO();
+    response.borrow_date = record.borrowDate;
+    response.code = book.code;
+    response.title = book.title;
+    response.return_date = record.returnDate;
+
+    return response;
   }
 }

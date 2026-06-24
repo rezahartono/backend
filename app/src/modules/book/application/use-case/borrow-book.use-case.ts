@@ -17,6 +17,7 @@ import {
   BORROW_RECORD_REPOSITORY,
   type BorrowRecordRepository,
 } from '../../domain/repositories/borrow-record.repository';
+import { BorrowResponseDTO } from '../dto/borrow-response.dto';
 
 @Injectable()
 export class BorrowBookUseCase {
@@ -29,7 +30,10 @@ export class BorrowBookUseCase {
     private readonly borrowRecordRepository: BorrowRecordRepository,
   ) {}
 
-  async execute(memberCode: string, bookCode: string): Promise<BorrowRecord> {
+  async execute(
+    memberCode: string,
+    bookCode: string,
+  ): Promise<BorrowResponseDTO> {
     // Find member
     const member = await this.memberRepository.findByCode(memberCode);
     if (!member) {
@@ -80,6 +84,13 @@ export class BorrowBookUseCase {
     await this.bookRepository.update(book);
 
     // Save borrow record
-    return this.borrowRecordRepository.save(record);
+    const data = await this.borrowRecordRepository.save(record);
+
+    const response = new BorrowResponseDTO();
+    response.borrow_date = data.borrowDate;
+    response.code = book.code;
+    response.title = book.title;
+
+    return response;
   }
 }

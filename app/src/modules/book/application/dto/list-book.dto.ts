@@ -8,5 +8,7 @@ export class ListBookDTO {
   @ApiProperty()
   author: string;
   @ApiProperty()
-  stock: string;
+  stock: number;
+  @ApiProperty()
+  available_stock: number;
 }

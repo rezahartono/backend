@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { ReturnBookUseCase } from './return-book.use-case';
-import { MEMBER_REPOSITORY } from '../../domain/repositories/member.repository';
+import { MEMBER_REPOSITORY } from 'src/modules/member/domain/repositories/member.repository';
 import { BOOK_REPOSITORY } from '../../domain/repositories/book.repository';
 import { BORROW_RECORD_REPOSITORY } from '../../domain/repositories/borrow-record.repository';
-import { Member } from '../../domain/entities/member.entity';
+import { Member } from 'src/modules/member/domain/entities/member.entity';
 import { Book } from '../../domain/entities/book.entity';
 import { BorrowRecord } from '../../domain/entities/borrow-record.entity';
 
@@ -139,7 +139,7 @@ describe('ReturnBookUseCase', () => {
       const result = await useCase.execute('M001', 'JK-45');
 
       expect(result).toBeDefined();
-      expect(result.returnDate).toBeDefined();
+      expect(result.return_date).toBeDefined();
       expect(member.penaltyUntil).toBeNull();
     });
 
@@ -178,7 +178,7 @@ describe('ReturnBookUseCase', () => {
       const result = await useCase.execute('M001', 'JK-45');
 
       expect(result).toBeDefined();
-      expect(result.returnDate).toBeDefined();
+      expect(result.return_date).toBeDefined();
       expect(member.isPenalized()).toBe(true);
     });
   });
